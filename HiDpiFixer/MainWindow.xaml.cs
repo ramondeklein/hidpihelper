@@ -27,6 +27,22 @@ namespace HiDpiFixer
             public Manifest OriginalManifest { get; private set; }
             public Manifest PatchedManifest { get; private set; }
 
+            public bool PreferSideBySideManifest
+            {
+                get
+                {
+                    var regSideBySide = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide")?.GetValue("PreferExternalManifest");
+                    if (regSideBySide == null || !(regSideBySide is int))
+                        return false;
+
+                    return ((int)regSideBySide) != 0;
+                }
+                set
+                {
+                    Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide", true).SetValue("PreferExternalManifest", value ? 1 : 0);
+                }
+            }
+
             public bool? OriginalIsDpiAware { get; private set; }
             public bool? IsDpiAware { get; set; }
 
