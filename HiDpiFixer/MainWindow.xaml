@@ -1,0 +1,28 @@
+﻿<Window x:Class="HiDpiFixer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HiDPI helper" SizeToContent="WidthAndHeight">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Label Grid.Row="0" Grid.Column="0" Content="Filename"/>
+      <DockPanel Grid.Row="0" Grid.Column="2" LastChildFill="True">
+        <TextBox Text="{Binding Path=Filename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Command="{Binding Path=BrowseFileCommand, Mode=OneWay}" Content="..."/>
+      </DockPanel>
+      <Label Grid.Row="1" Grid.Column="0" Content="DPI aware (original)"/>
+      <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding Path=OriginalIsDpiAware, Mode=OneWay}" IsThreeState="True" IsEnabled="False"/>
+      <Label Grid.Row="2" Grid.Column="0" Content="DPI aware (effective)"/>
+      <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding Path=IsDpiAware, Mode=TwoWay}" IsThreeState="True" IsEnabled="True"/>
+      <Button Grid.Row="3" Grid.Column="2" Command="{Binding Path=SaveManifestCommand, Mode=OneWay}" Content="Save manifest"/>
+    </Grid>
+</Window>
